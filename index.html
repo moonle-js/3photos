@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="./assetst/javascript/script.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+        }
+        main{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        section{
+            width: 600px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    
+    <main>
+        <section>
+            <img id="image" src="./assetst/images/spinner.gif" alt="">
+        </section>
+    </main>
+
+    <script>
+        const image = document.querySelector("#image")
+
+        var urls = ['./assetst/images/first.svg', './assetst/images/second.svg', './assetst/images/third.svg', './assetst/images/spinner.gif']
+        var int = 2000;
+        var count = 0;
+        var t;
+        var z;
+        var y;
+
+
+
+        function timeOutAdd(){
+            z = setTimeout(function(){
+                image.setAttribute('src', `${urls[count]}`)
+
+                count++;
+                if(count == 3){
+                    count = 0;
+                }
+
+
+                y = setTimeout(function(){
+                    image.setAttribute('src', `${urls[3]}`)
+                },4000)
+
+            },2000)
+        }
+
+        function intervalAdd(){
+            timeOutAdd();
+            if(!t){
+                t = setInterval(function(){
+                timeOutAdd();
+                },6000)
+            }
+            
+        }
+
+        window.onload = function(){
+            intervalAdd();
+
+        }
+
+
+
+
+        
+
+        image.addEventListener('mouseenter', function(){
+            clearInterval(t);
+            clearTimeout(z);
+            clearTimeout(y);
+            t = undefined;
+        })
+
+        image.addEventListener('mouseleave', function(){
+            intervalAdd();
+            setTimeout(function(){
+                image.setAttribute('src', `${urls[3]}`)
+            },1)
+        })
+
+            
+    </script>
+
+
+</body>
+</html>
